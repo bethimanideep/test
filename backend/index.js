@@ -9,7 +9,7 @@ app.use(cors({ origin: true, credentials: true }));
 
 app.get("/set-cookie", (req, res) => {
   res.cookie("username", "manideep", { 
-    httpOnly: false, secure: true, sameSite: "none", partitioned: true
+    httpOnly: false, secure: true, sameSite: "none"
   });
   res.send("Cookie set ✓");
 });
