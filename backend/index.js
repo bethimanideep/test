@@ -14,7 +14,7 @@ app.use((req, res, next) => {
 
 app.get("/set-cookie", (req, res) => {
   res.cookie("username", "manideep", { 
-    httpOnly: true, secure: true, sameSite: "none", partitioned: true, maxAge: 600000 
+    httpOnly: true, secure: true, sameSite: "none", maxAge: 600000 
   });
   res.send("Cookie set ✓");
 });
