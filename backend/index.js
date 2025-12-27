@@ -3,31 +3,24 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 const app = express();
-
 app.use(cookieParser());
+app.use(cors({ origin: true, credentials: true }));
 
-app.use(
-  cors({
-    origin: true,
-    credentials: true,
-  })
-);
+// No-cache middleware
+app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store');
+  next();
+});
 
 app.get("/set-cookie", (req, res) => {
-  res.cookie("username", "manideep", {
-    httpOnly: true,
-    secure: true,        // must be HTTPS
-    sameSite: "none",    // required for cross-site
-    partitioned: true,   // ⭐ CHIPS magic
-    maxAge: 1000 * 60 * 10
+  res.cookie("username", "manideep", { 
+    httpOnly: true, secure: true, sameSite: "none", partitioned: true, maxAge: 600000 
   });
-
-  res.send("Cross-site cookie set with res.cookie + Partitioned");
+  res.send("Cookie set ✓");
 });
 
 app.get("/get-cookie", (req, res) => {
-  const username = req.cookies.username;
-  res.send(username ? `Cookie: ${username}` : "No cookie found");
+  res.send(req.cookies.username ? `Hello ${req.cookies.username}` : "No cookie");
 });
 
-app.listen(4000, () => console.log("Server running on 4000"));
+app.listen(4000, () => console.log("✅ Server ready on 4000"));
