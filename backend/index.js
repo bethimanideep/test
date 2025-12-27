@@ -6,11 +6,6 @@ const app = express();
 app.use(cookieParser());
 app.use(cors({ origin: true, credentials: true }));
 
-// No-cache middleware
-app.use((req, res, next) => {
-  res.setHeader('Cache-Control', 'no-store');
-  next();
-});
 
 app.get("/set-cookie", (req, res) => {
   res.cookie("username", "manideep", { 
